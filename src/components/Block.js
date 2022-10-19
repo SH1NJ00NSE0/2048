@@ -5,7 +5,12 @@ import styled from "styled-components";
 export default function block({ value }) {
 	return (
 		<>
-			<Blocks num={value}>
+			<Blocks
+				num={value}
+				onClick={() => {
+					console.log(value);
+				}}
+			>
 				<Number color={value}>{value}</Number>
 			</Blocks>
 		</>
