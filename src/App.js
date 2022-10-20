@@ -16,6 +16,8 @@ function App() {
 		[0, 0, 0, 0],
 	]);
 
+	const [gameOver, setGameOver] = useState(false);
+
 	const Block = ({ num }) => {
 		const { blockStyle } = style;
 		const brown100 = "#FAF8EF";
@@ -93,7 +95,6 @@ function App() {
 
 	const initialize = () => {
 		let newGrid = cloneDeep(data);
-		// let newClone = cloneDeep(data);
 		console.table(newGrid);
 		addNumber(newGrid);
 		console.table(newGrid);
@@ -110,7 +111,6 @@ function App() {
 			if (gridFull) {
 				break;
 			}
-
 			let rand1 = Math.floor(Math.random() * 4);
 			let rand2 = Math.floor(Math.random() * 4);
 			attempts++;
@@ -118,6 +118,15 @@ function App() {
 				newGrid[rand1][rand2] = Math.random() > 0.5 ? 2 : 4;
 				added = true;
 			}
+			// if (attempts > 100) {
+			// 	gridFull = true;
+			// 	let gameOverr = checkIfGameOver(data);
+			// 	if (gameOverr) {
+			// 		alert("game over");
+			// 		setGameOver(true);
+			// 	}
+			// 	setGameOver(true);
+			// }
 		}
 	};
 
@@ -304,7 +313,33 @@ function App() {
 		}
 	};
 
+	const checkIfGameOver = () => {
+		let checker = swipeLeft(true);
+		if (JSON.stringify(data) !== JSON.stringify(checker)) {
+			return false;
+		}
+
+		let checker2 = swipeDown(true);
+		if (JSON.stringify(data) !== JSON.stringify(checker2)) {
+			return false;
+		}
+
+		let checker3 = swipeRight(true);
+		if (JSON.stringify(data) !== JSON.stringify(checker3)) {
+			return false;
+		}
+
+		let checker4 = swipeUp(true);
+		if (JSON.stringify(data) !== JSON.stringify(checker4)) {
+			return false;
+		}
+		return true;
+	};
+
 	const handleKeyDown = event => {
+		if (gameOver) {
+			return;
+		}
 		switch (event.keyCode) {
 			// case STOP:
 			// 	break;
@@ -323,11 +358,28 @@ function App() {
 			default:
 				break;
 		}
+
+		let gameOverr = checkIfGameOver();
+		if (gameOverr) {
+			alert("game over");
+			setGameOver(true);
+		}
+	};
+
+	const resetGame = () => {
+		const emptyGrid = [
+			[0, 0, 0, 0],
+			[0, 0, 0, 0],
+			[0, 0, 0, 0],
+			[0, 0, 0, 0],
+		];
+		addNumber(emptyGrid);
+		addNumber(emptyGrid);
+		setData(emptyGrid);
 	};
 
 	useEffect(() => {
 		initialize();
-		// document.addEventListener('keydown',handleKeyDown);
 	}, []);
 
 	useEvent("keydown", handleKeyDown);
