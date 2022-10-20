@@ -95,11 +95,11 @@ function App() {
 
 	const initialize = () => {
 		let newGrid = cloneDeep(data);
-		console.table(newGrid);
+		// console.table(newGrid);
 		addNumber(newGrid);
-		console.table(newGrid);
+		// console.table(newGrid);
 		addNumber(newGrid);
-		console.table(newGrid);
+		// console.table(newGrid);
 		setData(newGrid);
 	};
 
@@ -118,19 +118,63 @@ function App() {
 				newGrid[rand1][rand2] = Math.random() > 0.5 ? 2 : 4;
 				added = true;
 			}
-			// if (attempts > 100) {
-			// 	gridFull = true;
-			// 	let gameOverr = checkIfGameOver(data);
-			// 	if (gameOverr) {
-			// 		alert("game over");
-			// 		setGameOver(true);
-			// 	}
-			// 	setGameOver(true);
-			// }
 		}
 	};
 
 	const swipeLeft = dummy => {
+		console.log("left");
+		let oldGrid = data;
+		let newArray = cloneDeep(data);
+		for (let i = 0; i < 4; i++) {
+			let b = newArray[i];
+			let slow = 0;
+			let fast = 1;
+			while (slow < 4) {
+				if (fast === 4) {
+					fast = slow + 1;
+					slow++;
+					continue;
+				}
+				if (b[slow] === 0 && b[fast] === 0) {
+					fast++;
+				} else if (b[slow] === 0 && b[fast] !== 0) {
+					b[slow] = b[fast];
+					b[fast] = 0;
+					fast++;
+				} else if (b[slow] !== 0 && b[fast] === 0) {
+					fast++;
+				} else if (b[slow] !== 0 && b[fast] !== 0) {
+					if (b[slow] === b[fast]) {
+						b[slow] += b[fast];
+						console.log(
+							"%d + %d = %d",
+							score,
+							b[slow],
+							score + b[slow]
+						);
+						setScore(score + b[slow]);
+						b[fast] = 0;
+						fast = slow + 1;
+						slow++;
+					} else {
+						slow++;
+						fast = slow + 1;
+					}
+				}
+			}
+		}
+		if (JSON.stringify(oldGrid) !== JSON.stringify(newArray)) {
+			addNumber(newArray);
+		}
+		if (dummy) {
+			return newArray;
+		} else {
+			setData(newArray);
+		}
+	};
+
+	const checkLeft = dummy => {
+		console.log("check left");
 		let oldGrid = data;
 		let newArray = cloneDeep(data);
 		for (let i = 0; i < 4; i++) {
@@ -175,6 +219,59 @@ function App() {
 	};
 
 	const swipeRight = dummy => {
+		console.log("right");
+		let oldGrid = data;
+		let newArray = cloneDeep(data);
+		for (let i = 3; i >= 0; i--) {
+			let b = newArray[i];
+			let slow = b.length - 1;
+			let fast = slow - 1;
+			while (slow > 0) {
+				if (fast === -1) {
+					fast = slow - 1;
+					slow--;
+					continue;
+				}
+				if (b[slow] === 0 && b[fast] === 0) {
+					fast--;
+				} else if (b[slow] === 0 && b[fast] !== 0) {
+					b[slow] = b[fast];
+					b[fast] = 0;
+					fast--;
+				} else if (b[slow] !== 0 && b[fast] === 0) {
+					fast--;
+				} else if (b[slow] !== 0 && b[fast] !== 0) {
+					if (b[slow] === b[fast]) {
+						b[slow] += b[fast];
+						console.log(
+							"%d + %d = %d",
+							score,
+							b[slow],
+							score + b[slow]
+						);
+						setScore(score + b[slow]);
+						b[fast] = 0;
+						fast = slow - 1;
+						slow--;
+					} else {
+						slow--;
+						fast = slow - 1;
+					}
+				}
+			}
+		}
+		if (JSON.stringify(oldGrid) !== JSON.stringify(newArray)) {
+			addNumber(newArray);
+		}
+		if (dummy) {
+			return newArray;
+		} else {
+			setData(newArray);
+		}
+	};
+
+	const checkRight = dummy => {
+		console.log("check right");
 		let oldGrid = data;
 		let newArray = cloneDeep(data);
 		for (let i = 3; i >= 0; i--) {
@@ -219,6 +316,58 @@ function App() {
 	};
 
 	const swipeUp = dummy => {
+		console.log("up");
+		let b = [...data];
+		let oldData = JSON.parse(JSON.stringify(data));
+		for (let i = 0; i < 4; i++) {
+			let slow = 0;
+			let fast = 1;
+			while (slow < 4) {
+				if (fast === 4) {
+					fast = slow + 1;
+					slow++;
+					continue;
+				}
+				if (b[slow][i] === 0 && b[fast][i] === 0) {
+					fast++;
+				} else if (b[slow][i] === 0 && b[fast][i] !== 0) {
+					b[slow][i] = b[fast][i];
+					b[fast][i] = 0;
+					fast++;
+				} else if (b[slow][i] !== 0 && b[fast][i] === 0) {
+					fast++;
+				} else if (b[slow][i] !== 0 && b[fast][i] !== 0) {
+					if (b[slow][i] === b[fast][i]) {
+						b[slow][i] += b[fast][i];
+						console.log(
+							"%d + %d = %d",
+							score,
+							b[slow][i],
+							score + b[slow][i]
+						);
+						setScore(score + b[slow][i]);
+						b[fast][i] = 0;
+						fast = slow + 1;
+						slow++;
+					} else {
+						slow++;
+						fast = slow + 1;
+					}
+				}
+			}
+		}
+		if (JSON.stringify(oldData) !== JSON.stringify(b)) {
+			addNumber(b);
+		}
+		if (dummy) {
+			return b;
+		} else {
+			setData(b);
+		}
+	};
+
+	const checkUp = dummy => {
+		console.log("check up");
 		let b = [...data];
 		let oldData = JSON.parse(JSON.stringify(data));
 		for (let i = 0; i < 4; i++) {
@@ -262,6 +411,58 @@ function App() {
 	};
 
 	const swipeDown = dummy => {
+		console.log("down");
+		let b = [...data];
+		let oldData = JSON.parse(JSON.stringify(data));
+		for (let i = 3; i >= 0; i--) {
+			let slow = b.length - 1;
+			let fast = slow - 1;
+			while (slow > 0) {
+				if (fast === -1) {
+					fast = slow - 1;
+					slow--;
+					continue;
+				}
+				if (b[slow][i] === 0 && b[fast][i] === 0) {
+					fast--;
+				} else if (b[slow][i] === 0 && b[fast][i] !== 0) {
+					b[slow][i] = b[fast][i];
+					b[fast][i] = 0;
+					fast--;
+				} else if (b[slow][i] !== 0 && b[fast][i] === 0) {
+					fast--;
+				} else if (b[slow][i] !== 0 && b[fast][i] !== 0) {
+					if (b[slow][i] === b[fast][i]) {
+						b[slow][i] += b[fast][i];
+						console.log(
+							"%d + %d = %d",
+							score,
+							b[slow][i],
+							score + b[slow][i]
+						);
+						setScore(score + b[slow][i]);
+						b[fast][i] = 0;
+						fast = slow - 1;
+						slow--;
+					} else {
+						slow--;
+						fast = slow - 1;
+					}
+				}
+			}
+		}
+		if (JSON.stringify(b) !== JSON.stringify(oldData)) {
+			addNumber(b);
+		}
+		if (dummy) {
+			return b;
+		} else {
+			setData(b);
+		}
+	};
+
+	const checkDown = dummy => {
+		console.log("check down");
 		let b = [...data];
 		let oldData = JSON.parse(JSON.stringify(data));
 		for (let i = 3; i >= 0; i--) {
@@ -305,22 +506,22 @@ function App() {
 	};
 
 	const checkIfGameOver = () => {
-		let checker = swipeLeft(true);
+		let checker = checkLeft(true);
 		if (JSON.stringify(data) !== JSON.stringify(checker)) {
 			return false;
 		}
 
-		let checker2 = swipeDown(true);
+		let checker2 = checkDown(true);
 		if (JSON.stringify(data) !== JSON.stringify(checker2)) {
 			return false;
 		}
 
-		let checker3 = swipeRight(true);
+		let checker3 = checkRight(true);
 		if (JSON.stringify(data) !== JSON.stringify(checker3)) {
 			return false;
 		}
 
-		let checker4 = swipeUp(true);
+		let checker4 = checkUp(true);
 		if (JSON.stringify(data) !== JSON.stringify(checker4)) {
 			return false;
 		}
@@ -331,23 +532,27 @@ function App() {
 		if (gameOver) {
 			return;
 		}
+		let gameOverr = false;
 		switch (event.keyCode) {
 			case UP_ARROW:
 				swipeUp();
+				gameOverr = checkIfGameOver();
 				break;
 			case DOWN_ARROW:
+				gameOverr = checkIfGameOver();
 				swipeDown();
 				break;
 			case LEFT_ARROW:
+				gameOverr = checkIfGameOver();
 				swipeLeft();
 				break;
 			case RIGHT_ARROW:
+				gameOverr = checkIfGameOver();
 				swipeRight();
 				break;
 			default:
 				break;
 		}
-		let gameOverr = checkIfGameOver();
 		if (gameOverr) {
 			alert("game over");
 			setGameOver(true);
@@ -376,7 +581,7 @@ function App() {
 		<div className="container">
 			<div className="score-container">
 				<div className="score-title">score</div>
-				<div className="score-value">13296</div>
+				<div className="score-value">{score}</div>
 			</div>
 			<div className="board">
 				{data.map((row, oneIndex) => {
