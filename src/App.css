@@ -170,13 +170,44 @@ body{
 	background-color: var(--brown100);
 }
 
+.container{
+	display: flex;
+	text-align: center;
+	width: 100%;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 70px;
+}
+
 .board{
 	background-color: var(--brown300);
 	width: 460px;
 	height: 460px;
-	margin: auto;
+	/* margin: auto; */
 	padding: 10px;
 	border-radius: 5px;
-	margin-top: 50px;
+	margin-top: 20px;
 	box-sizing: border-box;
+}
+
+.score-container{
+	width: 460px;
+	height: 128px;
+	text-align: center;
+	align-items: center;
+}
+.score-title{
+	font-weight: 600;
+	font-size: 36px;
+	line-height: 100%;
+	text-align: center;
+	color: var(--brown300);
+}
+.score-value{
+	display: inline-block;
+	font-weight: 700;
+	font-size: 84px;
+	line-height: 100%;
+	text-align: center;
+	color: var(--brown400);
 }

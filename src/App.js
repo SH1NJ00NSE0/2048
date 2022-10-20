@@ -17,6 +17,7 @@ function App() {
 	]);
 
 	const [gameOver, setGameOver] = useState(false);
+	const [score, setScore] = useState(0);
 
 	const Block = ({ num }) => {
 		const { blockStyle } = style;
@@ -39,7 +40,6 @@ function App() {
 			<div
 				style={{
 					...blockStyle,
-					// backgroundColor:getColors(num),
 					color: num === 2 || num === 4 ? brown400 : brown100,
 					backgroundColor:
 						num === 2
@@ -133,8 +133,6 @@ function App() {
 	const swipeLeft = dummy => {
 		let oldGrid = data;
 		let newArray = cloneDeep(data);
-
-		// console.table(newArray);
 		for (let i = 0; i < 4; i++) {
 			let b = newArray[i];
 			let slow = 0;
@@ -179,8 +177,6 @@ function App() {
 	const swipeRight = dummy => {
 		let oldGrid = data;
 		let newArray = cloneDeep(data);
-
-		// console.table(newArray);
 		for (let i = 3; i >= 0; i--) {
 			let b = newArray[i];
 			let slow = b.length - 1;
@@ -225,7 +221,6 @@ function App() {
 	const swipeUp = dummy => {
 		let b = [...data];
 		let oldData = JSON.parse(JSON.stringify(data));
-		// console.table(newArray);
 		for (let i = 0; i < 4; i++) {
 			let slow = 0;
 			let fast = 1;
@@ -269,9 +264,6 @@ function App() {
 	const swipeDown = dummy => {
 		let b = [...data];
 		let oldData = JSON.parse(JSON.stringify(data));
-		// let newArray = cloneDeep(data);
-
-		// console.table(newArray);
 		for (let i = 3; i >= 0; i--) {
 			let slow = b.length - 1;
 			let fast = slow - 1;
@@ -305,7 +297,6 @@ function App() {
 		if (JSON.stringify(b) !== JSON.stringify(oldData)) {
 			addNumber(b);
 		}
-
 		if (dummy) {
 			return b;
 		} else {
@@ -341,8 +332,6 @@ function App() {
 			return;
 		}
 		switch (event.keyCode) {
-			// case STOP:
-			// 	break;
 			case UP_ARROW:
 				swipeUp();
 				break;
@@ -358,7 +347,6 @@ function App() {
 			default:
 				break;
 		}
-
 		let gameOverr = checkIfGameOver();
 		if (gameOverr) {
 			alert("game over");
@@ -385,16 +373,24 @@ function App() {
 	useEvent("keydown", handleKeyDown);
 
 	return (
-		<div className="board">
-			{data.map((row, oneIndex) => {
-				return (
-					<div style={{ display: "flex" }} key={oneIndex}>
-						{row.map((digit, index) => (
-							<Block num={digit} key={index}></Block>
-						))}
-					</div>
-				);
-			})}
+		<div className="container">
+			<div className="score-container">
+				<div className="score-title">score</div>
+				<div className="score-value">13296</div>
+			</div>
+			<div className="board">
+				{data.map((row, oneIndex) => {
+					return (
+						<div style={{ display: "flex" }} key={oneIndex}>
+							{row.map((digit, index) => (
+								<Block num={digit} key={index}></Block>
+							))}
+						</div>
+					);
+				})}
+				{gameOver && <div>GAME OVER</div>}
+				<div onClick={resetGame}>NEW GAME</div>
+			</div>
 		</div>
 	);
 }
