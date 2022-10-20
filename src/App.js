@@ -1,9 +1,13 @@
 import "./App.css";
 import { React, Component, useEffect, useState } from "react";
 import cloneDeep from "clone-deep";
+import { useEvent } from "./util";
 
 function App() {
-
+	const UP_ARROW = 38;
+	const DOWN_ARROW = 40;
+	const LEFT_ARROW = 37;
+	const RIGHT_ARROW = 39;
 
 	const [data, setData] = useState([
 		[0, 0, 0, 0],
@@ -114,7 +118,7 @@ function App() {
 		let oldGrid = data;
 		let newArray = cloneDeep(data);
 
-		console.table(newArray);
+		// console.table(newArray);
 		for (let i = 0; i < 4; i++) {
 			let b = newArray[i];
 			let slow = 0;
@@ -149,13 +153,14 @@ function App() {
 		if (JSON.stringify(oldGrid) !== JSON.stringify(newArray)) {
 			addNumber(newArray);
 		}
+		setData(newArray);
 	};
 
 	const swipeRight = () => {
 		let oldGrid = data;
 		let newArray = cloneDeep(data);
 
-		console.table(newArray);
+		// console.table(newArray);
 		for (let i = 3; i >= 0; i--) {
 			let b = newArray[i];
 			let slow = b.length - 1;
@@ -190,12 +195,13 @@ function App() {
 		if (JSON.stringify(oldGrid) !== JSON.stringify(newArray)) {
 			addNumber(newArray);
 		}
+		setData(newArray);
 	};
 
 	const swipeUp = () => {
 		let b = [...data];
 		let oldData = JSON.parse(JSON.stringify(data));
-		console.table(newArray);
+		// console.table(newArray);
 		for (let i = 0; i < 4; i++) {
 			let slow = 0;
 			let fast = 1;
@@ -229,6 +235,7 @@ function App() {
 		if (JSON.stringify(oldData) !== JSON.stringify(b)) {
 			addNumber(b);
 		}
+		setData(b);
 	};
 
 	const swipeDown = () => {
@@ -236,7 +243,7 @@ function App() {
 		let oldData = JSON.parse(JSON.stringify(data));
 		// let newArray = cloneDeep(data);
 
-		console.table(newArray);
+		// console.table(newArray);
 		for (let i = 3; i >= 0; i--) {
 			let slow = b.length - 1;
 			let fast = slow - 1;
@@ -268,19 +275,39 @@ function App() {
 			}
 		}
 		if (JSON.stringify(b) !== JSON.stringify(oldData)) {
-			addNumber(newArray);
+			addNumber(b);
+		}
+
+		setData(b);
+	};
+
+	const handleKeyDown = event => {
+		switch (event.keyCode) {
+			// case STOP:
+			// 	break;
+			case UP_ARROW:
+				swipeUp();
+				break;
+			case DOWN_ARROW:
+				swipeDown();
+				break;
+			case LEFT_ARROW:
+				swipeLeft();
+				break;
+			case RIGHT_ARROW:
+				swipeRight();
+				break;
+			default:
+				break;
 		}
 	};
 
-	const handleKeyDown=(event)=>{
-		switch(event.keyCode){
-			
-		}
-	}
-
 	useEffect(() => {
 		initialize();
+		// document.addEventListener('keydown',handleKeyDown);
 	}, []);
+
+	useEvent('keydown',handleKeyDown);
 
 	return (
 		<div className="board">
