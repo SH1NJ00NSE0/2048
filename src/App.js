@@ -63,6 +63,14 @@ function App() {
 							: num === 2048
 							? block2048
 							: brown200,
+					fontSize:
+						num < 10
+							? 58
+							: num < 100
+							? 52
+							: num < 1000
+							? 42
+							: 32,
 				}}
 			>
 				{num !== 0 ? num : ""}
@@ -79,7 +87,6 @@ function App() {
 			borderRadius: 5,
 			justifyContent: "center",
 			alignItems: "center",
-			fontSize: "58px",
 			fontWeight: "600",
 		},
 	};
@@ -114,7 +121,7 @@ function App() {
 		}
 	};
 
-	const swipeLeft = () => {
+	const swipeLeft = dummy => {
 		let oldGrid = data;
 		let newArray = cloneDeep(data);
 
@@ -153,10 +160,14 @@ function App() {
 		if (JSON.stringify(oldGrid) !== JSON.stringify(newArray)) {
 			addNumber(newArray);
 		}
-		setData(newArray);
+		if (dummy) {
+			return newArray;
+		} else {
+			setData(newArray);
+		}
 	};
 
-	const swipeRight = () => {
+	const swipeRight = dummy => {
 		let oldGrid = data;
 		let newArray = cloneDeep(data);
 
@@ -195,10 +206,14 @@ function App() {
 		if (JSON.stringify(oldGrid) !== JSON.stringify(newArray)) {
 			addNumber(newArray);
 		}
-		setData(newArray);
+		if (dummy) {
+			return newArray;
+		} else {
+			setData(newArray);
+		}
 	};
 
-	const swipeUp = () => {
+	const swipeUp = dummy => {
 		let b = [...data];
 		let oldData = JSON.parse(JSON.stringify(data));
 		// console.table(newArray);
@@ -235,10 +250,14 @@ function App() {
 		if (JSON.stringify(oldData) !== JSON.stringify(b)) {
 			addNumber(b);
 		}
-		setData(b);
+		if (dummy) {
+			return b;
+		} else {
+			setData(b);
+		}
 	};
 
-	const swipeDown = () => {
+	const swipeDown = dummy => {
 		let b = [...data];
 		let oldData = JSON.parse(JSON.stringify(data));
 		// let newArray = cloneDeep(data);
@@ -278,7 +297,11 @@ function App() {
 			addNumber(b);
 		}
 
-		setData(b);
+		if (dummy) {
+			return b;
+		} else {
+			setData(b);
+		}
 	};
 
 	const handleKeyDown = event => {
@@ -307,7 +330,7 @@ function App() {
 		// document.addEventListener('keydown',handleKeyDown);
 	}, []);
 
-	useEvent('keydown',handleKeyDown);
+	useEvent("keydown", handleKeyDown);
 
 	return (
 		<div className="board">
