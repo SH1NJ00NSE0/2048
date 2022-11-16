@@ -186,7 +186,6 @@ body{
 	/* margin: auto; */
 	padding: 10px;
 	border-radius: 5px;
-	margin-top: 20px;
 	box-sizing: border-box;
 }
 
@@ -202,12 +201,33 @@ body{
 	line-height: 100%;
 	text-align: center;
 	color: var(--brown300);
+	cursor:default;
 }
 .score-value{
+	cursor:default;
 	display: inline-block;
 	font-weight: 700;
 	font-size: 84px;
 	line-height: 100%;
 	text-align: center;
 	color: var(--brown400);
+}
+
+.new-game-container{
+	width: 460px;
+	display: flex;
+	justify-content: right;
+}
+
+.new-game{
+	cursor: pointer;
+	display: flex;
+	padding: 8px 16px;
+	background-color: var(--brown300);
+	color: var(--brown100);
+	border-radius: 5px;
+	margin: 10px 0;
+	font-weight: 500;
+	font-size: 18px;
+	box-sizing: content-box;
 }

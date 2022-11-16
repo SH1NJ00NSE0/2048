@@ -95,11 +95,8 @@ function App() {
 
 	const initialize = () => {
 		let newGrid = cloneDeep(data);
-		// console.table(newGrid);
 		addNumber(newGrid);
-		// console.table(newGrid);
 		addNumber(newGrid);
-		// console.table(newGrid);
 		setData(newGrid);
 	};
 
@@ -554,7 +551,7 @@ function App() {
 				break;
 		}
 		if (gameOverr) {
-			alert("game over");
+			alert("game over\nyour score is " + score);
 			setGameOver(true);
 		}
 	};
@@ -566,6 +563,8 @@ function App() {
 			[0, 0, 0, 0],
 			[0, 0, 0, 0],
 		];
+		setGameOver(false);
+		setScore(0);
 		addNumber(emptyGrid);
 		addNumber(emptyGrid);
 		setData(emptyGrid);
@@ -573,15 +572,18 @@ function App() {
 
 	useEffect(() => {
 		initialize();
-	}, []);
+	},[]);
 
 	useEvent("keydown", handleKeyDown);
-
+	
 	return (
 		<div className="container">
 			<div className="score-container">
 				<div className="score-title">score</div>
 				<div className="score-value">{score}</div>
+			</div>
+			<div className="new-game-container">
+				<div className="new-game" onClick={resetGame}>NEW GAME</div>
 			</div>
 			<div className="board">
 				{data.map((row, oneIndex) => {
@@ -593,8 +595,6 @@ function App() {
 						</div>
 					);
 				})}
-				{gameOver && <div>GAME OVER</div>}
-				<div onClick={resetGame}>NEW GAME</div>
 			</div>
 		</div>
 	);
