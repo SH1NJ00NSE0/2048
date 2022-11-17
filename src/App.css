@@ -166,11 +166,11 @@
 	--block2048: #E5B318;
 }
 
-body{
+body {
 	background-color: var(--brown100);
 }
 
-.container{
+.container {
 	display: flex;
 	text-align: center;
 	width: 100%;
@@ -179,7 +179,7 @@ body{
 	padding-top: 70px;
 }
 
-.board{
+.board {
 	background-color: var(--brown300);
 	width: 460px;
 	height: 460px;
@@ -189,22 +189,24 @@ body{
 	box-sizing: border-box;
 }
 
-.score-container{
+.score-container {
 	width: 460px;
 	height: 128px;
 	text-align: center;
 	align-items: center;
 }
-.score-title{
+
+.score-title {
 	font-weight: 600;
 	font-size: 36px;
 	line-height: 100%;
 	text-align: center;
 	color: var(--brown300);
-	cursor:default;
+	cursor: default;
 }
-.score-value{
-	cursor:default;
+
+.score-value {
+	cursor: default;
 	display: inline-block;
 	font-weight: 700;
 	font-size: 84px;
@@ -213,13 +215,14 @@ body{
 	color: var(--brown400);
 }
 
-.new-game-container{
+.buttons-container {
 	width: 460px;
 	display: flex;
-	justify-content: right;
+	justify-content: space-between;
 }
 
-.new-game{
+.new-game,
+.rank {
 	cursor: pointer;
 	display: flex;
 	padding: 8px 16px;
@@ -230,4 +233,19 @@ body{
 	font-weight: 500;
 	font-size: 18px;
 	box-sizing: content-box;
+	border: none;
+}
+
+.modal{
+	position: absolute;
+	width: 300px;
+	height: 400px;
+	background-color: var(--brown200);
+	border-radius: 5px;
+	z-index: 99;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	border: 5px solid var(--brown300);
+	box-sizing: border-box;
 }

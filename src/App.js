@@ -2,6 +2,7 @@ import "./App.css";
 import { React, Component, useEffect, useState } from "react";
 import cloneDeep from "clone-deep";
 import { useEvent } from "./util";
+import Rank from "./components/Rank";
 
 function App() {
 	const UP_ARROW = 38;
@@ -18,6 +19,11 @@ function App() {
 
 	const [gameOver, setGameOver] = useState(false);
 	const [score, setScore] = useState(0);
+	// const [rankOpen, setRankOpen] = useState(false);
+
+	// const showRank = () => {
+	// 	setRankOpen(true);
+	// };
 
 	const Block = ({ num }) => {
 		const { blockStyle } = style;
@@ -65,16 +71,8 @@ function App() {
 							: num === 2048
 							? block2048
 							: brown200,
-					fontSize:
-						num < 10
-							? 58
-							: num < 100
-							? 52
-							: num < 1000
-							? 42
-							: 32,
-				}}
-			>
+					fontSize: num < 10 ? 58 : num < 100 ? 52 : num < 1000 ? 42 : 32,
+				}}>
 				{num !== 0 ? num : ""}
 			</div>
 		);
@@ -143,12 +141,7 @@ function App() {
 				} else if (b[slow] !== 0 && b[fast] !== 0) {
 					if (b[slow] === b[fast]) {
 						b[slow] += b[fast];
-						console.log(
-							"%d + %d = %d",
-							score,
-							b[slow],
-							score + b[slow]
-						);
+						console.log("%d + %d = %d", score, b[slow], score + b[slow]);
 						setScore(score + b[slow]);
 						b[fast] = 0;
 						fast = slow + 1;
@@ -240,12 +233,7 @@ function App() {
 				} else if (b[slow] !== 0 && b[fast] !== 0) {
 					if (b[slow] === b[fast]) {
 						b[slow] += b[fast];
-						console.log(
-							"%d + %d = %d",
-							score,
-							b[slow],
-							score + b[slow]
-						);
+						console.log("%d + %d = %d", score, b[slow], score + b[slow]);
 						setScore(score + b[slow]);
 						b[fast] = 0;
 						fast = slow - 1;
@@ -572,18 +560,24 @@ function App() {
 
 	useEffect(() => {
 		initialize();
-	},[]);
+	}, []);
 
 	useEvent("keydown", handleKeyDown);
-	
+
 	return (
 		<div className="container">
 			<div className="score-container">
 				<div className="score-title">score</div>
 				<div className="score-value">{score}</div>
 			</div>
-			<div className="new-game-container">
-				<div className="new-game" onClick={resetGame}>NEW GAME</div>
+			<div className="buttons-container">
+				{/* <button className="rank" onClick={rankOpen}>
+					RANK
+				</button> */}
+				<Rank/>
+				<button className="new-game" onClick={resetGame}>
+					NEW GAME
+				</button>
 			</div>
 			<div className="board">
 				{data.map((row, oneIndex) => {
