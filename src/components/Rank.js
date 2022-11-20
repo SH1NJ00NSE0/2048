@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import "../App.css";
 
 function Rank(props) {
-	const [rankOpen, setRankOpen] = useState(true);
+	const [rankOpen, setRankOpen] = useState(false);
 
 	// const showRank = () => {
 	// 	if (rankOpen) setRankOpen(false);
