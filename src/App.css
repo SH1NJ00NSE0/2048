@@ -248,4 +248,37 @@ body {
 	transform: translate(-50%,-50%);
 	border: 5px solid var(--brown300);
 	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.close-container{
+	width: 100%;
+	display: flex;
+	justify-content: right;
+	flex-direction: row;
+	padding: 10px 8px;
+	box-sizing: border-box;
+}
+
+.close-button{
+	display: flex;
+	text-align: right;
+	padding: 5px 15px;
+	cursor: pointer;
+	background-color: var(--brown300);
+	border-radius: 20px;
+	
+}
+
+.rank-board{
+	width: 95%;
+	height: 84%;
+	background-color: var(--brown100);
+	border-radius: 5px;
+}
+
+.rank-title{
+	color: var(--brown400);
 }
