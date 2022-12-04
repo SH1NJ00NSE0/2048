@@ -236,7 +236,13 @@ body {
 	border: none;
 }
 
-.modal{
+.rank:hover,
+.new-game:hover{
+	background-color: var(--brown400);
+	color: var(--brown100);
+}
+
+.modal {
 	position: absolute;
 	width: 300px;
 	height: 400px;
@@ -245,7 +251,7 @@ body {
 	z-index: 99;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%,-50%);
+	transform: translate(-50%, -50%);
 	border: 5px solid var(--brown300);
 	box-sizing: border-box;
 	display: flex;
@@ -253,8 +259,9 @@ body {
 	align-items: center;
 }
 
-.close-container{
+.close-container {
 	width: 100%;
+	position: absolute;
 	display: flex;
 	justify-content: right;
 	flex-direction: row;
@@ -262,23 +269,29 @@ body {
 	box-sizing: border-box;
 }
 
-.close-button{
+.close-button {
 	display: flex;
 	text-align: right;
 	padding: 5px 15px;
 	cursor: pointer;
 	background-color: var(--brown300);
 	border-radius: 20px;
-	
+	color: var(--brown400);
 }
 
-.rank-board{
+.close-button:hover {
+	background-color: var(--brown400);
+	color: var(--brown200);
+}
+
+.rank-board {
 	width: 95%;
 	height: 84%;
-	background-color: var(--brown100);
 	border-radius: 5px;
 }
 
-.rank-title{
+.rank-title {
 	color: var(--brown400);
+	height: 50px;
+	padding-top: 5px;
 }

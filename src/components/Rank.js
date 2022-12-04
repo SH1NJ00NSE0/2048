@@ -16,13 +16,13 @@ function Rank(props) {
 				<div>
 					<button className="rank">RANK</button>
 					<div className="modal">
+						<h1 className="rank-title">Rank</h1>
 						<div className="close-container">
 							<p className="close-button" onClick={() => setRankOpen(false)}>
 								close
 							</p>
 						</div>
 						<div className="rank-board">
-							<h1 className="rank-title">Rank</h1>
 						</div>
 					</div>
 				</div>
