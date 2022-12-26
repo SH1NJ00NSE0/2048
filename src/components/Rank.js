@@ -4,26 +4,25 @@ import "../App.css";
 function Rank(props) {
 	const [rankOpen, setRankOpen] = useState(false);
 
-	// const showRank = () => {
-	// 	if (rankOpen) setRankOpen(false);
-	// 	else setRankOpen(true);
-	// 	console.log("hello : " + rankOpen);
-	// };
-
 	return (
 		<div>
 			{rankOpen ? (
 				<div>
+					<link
+						rel="stylesheet"
+						href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0"
+					/>
 					<button className="rank">RANK</button>
 					<div className="modal">
 						<h1 className="rank-title">Rank</h1>
 						<div className="close-container">
-							<p className="close-button" onClick={() => setRankOpen(false)}>
-								close
+							<p
+								className="close-button"
+								onClick={() => setRankOpen(false)}>
+								<span class="material-symbols-rounded">close</span>
 							</p>
 						</div>
-						<div className="rank-board">
-						</div>
+						<div className="rank-board"></div>
 					</div>
 				</div>
 			) : (

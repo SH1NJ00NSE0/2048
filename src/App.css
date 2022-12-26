@@ -272,7 +272,7 @@ body {
 .close-button {
 	display: flex;
 	text-align: right;
-	padding: 5px 15px;
+	padding: 5px;
 	cursor: pointer;
 	background-color: var(--brown300);
 	border-radius: 20px;
